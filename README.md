@@ -1,37 +1,37 @@
-# LearnNova: Personalized AI Tutor
+# CivicVote: Election Process Education
 
 ## Overview
-LearnNova is an intelligent learning assistant designed to help users learn new concepts effectively. It personalizes educational content and adapts its pacing to match the individual user's level of understanding. 
+CivicVote is an intelligent assistant designed to help users understand the election process, timelines, and steps in an interactive and easy-to-follow way. It provides personalized, non-partisan guidance on voter registration, polling locations, and electoral mechanics.
 
 ## Chosen Vertical
-**Education / Personalized Learning Assistant**
-The project is focused on the Education vertical, solving the problem of one-size-fits-all learning by building a dynamic AI tutor that gauges understanding and adapts the curriculum contextually.
+**Election Process Education**
+This project focuses on the Election Process Education vertical. It aims to demystify complex voting procedures and encourage civic engagement by providing clear, accessible information tailored to the user's current understanding and verification status.
 
 ## Approach and Logic
-The application is built using a modern, lightweight, vanilla tech stack (HTML, CSS, JavaScript) to ensure high performance and broad compatibility without complex build steps.
+The application is built using a modern, lightweight tech stack (HTML, CSS, JavaScript) to ensure high performance and accessibility.
 
-1. **Authentication & Progress Tracking (Firebase):** We use Firebase Authentication to uniquely identify users. Firestore is intended to persist user progress (number of topics completed and current proficiency level).
-2. **Intelligent Tutoring (Google Gemini API):** The core intelligence is driven by Google's Gemini 2.5 Flash model. We construct a system prompt that gives Gemini the persona of a patient tutor. The prompt dynamically injects the user's chosen topic and their current understanding level (e.g., Beginner).
-3. **Adaptive Conversation Flow:** As the user interacts with the tutor, the chat history is maintained. Gemini ends each response with a small quiz or check-for-understanding. Based on the user's answers, Gemini adapts the complexity of the next response.
-4. **Rich Aesthetics:** The UI employs a glassmorphism design with CSS variables, smooth animations, and a modern color palette to create an engaging learning environment.
+1. **Authentication & Profile Management (Firebase):** Uses Firebase Authentication for secure user sign-in. Firestore is used to track the user's progress and verification level.
+2. **Document Verification (Firebase Storage):** Integrates Firebase Storage to allow users to securely upload identification documents for profile verification.
+3. **Intelligent Non-Partisan Guidance (Google Gemini API):** Powered by Google's Gemini 2.5 Flash model. The system prompt enforces a strictly non-partisan persona that adapts its language based on whether the user is a "Beginner Voter" or a "Verified Voter".
+4. **Interactive Learning Flow:** Users select specific election topics (e.g., Electoral College, Mail-in Voting) and engage in a conversational interface where the AI breaks down information and checks for understanding.
+5. **Accessible Design:** Uses semantic HTML, ARIA labels, and a high-contrast UI to ensure usability for all citizens.
 
 ## How the Solution Works
-1. **Login/Signup:** The user enters their email and password. If Firebase is configured, it authenticates them. If not, it falls back to a mock login so the app can still be demonstrated.
-2. **Dashboard:** The user sees their progress and can input a topic they want to learn (e.g., "Quantum Physics").
-3. **Learning Session:** 
-   - A chat interface opens.
-   - The app sends the topic and the user's level to the Gemini API.
-   - Gemini responds with a personalized introduction to the topic.
-   - The user can ask clarifying questions or answer the tutor's quizzes.
-   - Markdown from the AI is parsed into readable HTML in real-time.
+1. **Login/Signup:** Users authenticate securely. (Mock fallback is provided if keys are not set).
+2. **Dashboard:** Users view their current voter level and select an election topic to learn about.
+3. **Document Upload:** Users can upload a sample ID. This simulates a verification process using Firebase Storage.
+4. **Learning Session:** 
+   - A chat interface opens tailored to the selected topic.
+   - The Gemini AI provides structured, step-by-step guidance.
+   - The AI ensures understanding before moving to the next step.
 
 ## Assumptions Made
-- **Zero-Dependency Setup:** To make the application easy to run anywhere, we assumed a zero-dependency setup utilizing ES modules (`type="module"`) and CDN links for Firebase, rather than requiring Node.js/NPM.
-- **API Keys:** It is assumed that the reviewer/evaluator will input their own Gemini API Key and Firebase configuration into the respective JavaScript files (`js/gemini-api.js` and `js/firebase-config.js`) to test the live backend integrations. If left empty, the application falls back to a simulated mock mode to prevent crashing.
-- **Browser Compatibility:** The application relies on modern browser features (ES modules, CSS Variables, `backdrop-filter`).
+- **API Keys:** Evaluators must input their own Gemini API Key and Firebase configuration (`js/gemini-api.js` and `js/firebase-config.js`) to test live integrations. A simulated mock mode is active by default to prevent crashing during initial review.
+- **Mock Environments:** The Firebase Storage implementation is mocked to simulate the upload delay if actual Firebase credentials are not provided.
+- **Browser Compatibility:** Relies on modern browser features (ES modules).
 
 ## Setup Instructions
 1. Clone the repository.
-2. Open `index.html` in a modern web browser (or serve using a local server like Live Server).
-3. Optional: Add your Gemini API key in `js/gemini-api.js` (`GEMINI_API_KEY`).
-4. Optional: Add your Firebase configuration in `js/firebase-config.js`.
+2. Open `index.html` in a modern web browser.
+3. Add your Gemini API key in `js/gemini-api.js` (`GEMINI_API_KEY`).
+4. Add your Firebase configuration in `js/firebase-config.js` to enable real Authentication, Firestore, and Storage.
